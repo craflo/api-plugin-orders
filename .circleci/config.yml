@@ -69,17 +69,10 @@ workflows:
     jobs:
       - build:
           context: reaction-publish-semantic-release
-      - lint:
-          requires:
-            - build
-      - test:
-          requires:
-            - build
+     
       - deploy:
           context: reaction-publish-semantic-release
-          requires:
-            - lint
-            - test
+     
           filters:
             branches:
               only: trunk
