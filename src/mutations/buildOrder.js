@@ -24,20 +24,12 @@ async function rmqPaymentsMakeOrder(order) {
   try {
     let rpc = await nameko.connect(nameko_config);
     console.log(rpc);
-    rmq_result  = await rpc.call('CustomerPaymentsService', 'createOrder', [order], {}, function(e, r) {
-        if (e) { 
-            console.log('Oops! RPC error:', e);
-            return 500
-        } else {
-            console.error('Success: Result is', r);
-            return r
-        }
-    });
+    rmq_result  = await rpc.call('CustomerPaymentsService', 'createOrder', [order], {});
   }
   catch (error ) {
     console.error('oops, something went wrong!', error);
   }
-  
+  console.error("Successfully triggered CustomerPaymentsService", rmq_result)
   return rmq_result
 }
 
@@ -319,7 +311,7 @@ export default async function buildOrder(context, input) {
 
   return {
     orders: [order],
-    PaymentServiceOrder: PaymentServiceOrder,
+    PaymentServiceOrder: PaymentServiceOrder.id,
     // GraphQL response gets the raw token
     token: fullToken && fullToken.token
   };
