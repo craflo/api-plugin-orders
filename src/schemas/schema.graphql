@@ -976,7 +976,8 @@ type BuildOrderPayload {
   "Orders that were created"
   orders: [Order]!
   
-  paymentsOrderId: String
+  
+  PaymentServiceOrder: String
 
   "If you are not logged in, this will be a token that can be used for future requests"
   token: String
