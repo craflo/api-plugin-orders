@@ -3,6 +3,7 @@ import cancelOrderItem from "./cancelOrderItem.js";
 import createRefund from "./createRefund.js";
 import moveOrderItems from "./moveOrderItems.js";
 import placeOrder from "./placeOrder.js";
+import buildOrder from "./buildOrder.js";
 import splitOrderItem from "./splitOrderItem.js";
 import updateOrder from "./updateOrder.js";
 import updateOrderFulfillmentGroup from "./updateOrderFulfillmentGroup.js";
@@ -13,6 +14,7 @@ export default {
   createRefund,
   moveOrderItems,
   placeOrder,
+  buildOrder,
   splitOrderItem,
   updateOrder,
   updateOrderFulfillmentGroup
