@@ -25,7 +25,7 @@ async function rmqPaymentsMakeOrder(order) {
     let rpc = await nameko.connect(nameko_config);
     console.log(dataUrl);
     rmq_result  = await rpc.call('CustomerPaymentsService', 'createOrder', [order], {}, function(e, r) {
-        if (e) {
+        if (e) { 
             console.log('Oops! RPC error:', e);
             return 500
         } else {
