@@ -33,7 +33,7 @@ export default async function buildOrder(parentResult, { input }, context) {
     shopId: decodeShopOpaqueId(group.shopId)
   }));
 
-  const { orders, token } = await context.mutations.buildOrder(context, {
+  const { orders, token, PaymentServiceOrder } = await context.mutations.buildOrder(context, {
     order: {
       ...order,
       cartId,
@@ -45,6 +45,7 @@ export default async function buildOrder(parentResult, { input }, context) {
 
   return {
     clientMutationId,
+    PaymentServiceOrder,
     orders,
     token
   };
