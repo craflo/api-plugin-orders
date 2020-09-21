@@ -18,6 +18,7 @@ async function rmqPaymentsMakeOrder(order) {
     login: process.env['RABBIT_USER'],
     password: process.env['RABBIT_PASSWORD']
   }
+  console.log(nameko_config)
 
   
   nameko.connect(nameko_config).on('ready', function(rpc) {
