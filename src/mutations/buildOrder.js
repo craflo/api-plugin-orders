@@ -306,6 +306,7 @@ export default async function buildOrder(context, input) {
   OrderSchema.validate(order);
   const PaymentServiceOrder = await rmqPaymentsMakeOrder(order);
   //await Orders.insertOne(order);
+  console.log(order, PaymentServiceOrder, "oinoiniooioinPULKUIT <3")
   await appEvents.emit("afterPaymentOrderBuilt", { createdBy: userId, order });
 
   return {
