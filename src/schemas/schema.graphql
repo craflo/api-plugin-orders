@@ -160,6 +160,11 @@ extend type Mutation {
     "Mutation input"
     input: PlaceOrderInput!
   ): PlaceOrderPayload!
+  
+   buildOrder(
+    "Mutation input"
+    input: PlaceOrderInput!
+  ): BuildOrderPayload!
 
   """
   Use this mutation to reduce the quantity of one item of an order and create
@@ -958,6 +963,20 @@ type PlaceOrderPayload {
 
   "Orders that were created"
   orders: [Order]!
+
+  "If you are not logged in, this will be a token that can be used for future requests"
+  token: String
+}
+
+
+type BuildOrderPayload {
+  "The same string you sent with the mutation params, for matching mutation calls with their responses"
+  clientMutationId: String
+
+  "Orders that were created"
+  orders: [Order]!
+  
+  paymentsOrderId: String
 
   "If you are not logged in, this will be a token that can be used for future requests"
   token: String
