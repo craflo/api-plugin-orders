@@ -19,10 +19,12 @@ async function rmqPaymentsMakeOrder(order) {
     password: process.env['RABBIT_PASSWORD']
   }
   console.log(nameko_config)
-
   
-  nameko.connect(nameko_config).on('ready', function(rpc) {
-    rpc.call('CustomerPaymentsService', 'createOrder', [order], {}, function(e, r) {
+  let rmq_result = false
+  try {
+    let rpc = await nameko.connect(nameko_config);
+    console.log(dataUrl);
+    rmq_result  = await rpc.call('CustomerPaymentsService', 'createOrder', [order], {}, function(e, r) {
         if (e) {
             console.log('Oops! RPC error:', e);
             return 500
@@ -31,7 +33,12 @@ async function rmqPaymentsMakeOrder(order) {
             return r
         }
     });
-  });
+  }
+  catch (error ) {
+    console.error('oops, something went wrong!', error);
+  }
+  
+  return rmq_result
 }
 
 
