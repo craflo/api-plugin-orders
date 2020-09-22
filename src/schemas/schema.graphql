@@ -732,7 +732,6 @@ input OrderInput {
   "this is from payments service, order id (razorpay) which was generated while successfully doing payment"
   paymentsOrderId: String
   
-  
 
   "The code for the currency in which all values are being provided"
   currencyCode: String!
@@ -840,9 +839,6 @@ input CreateRefundInput {
 input PlaceOrderInput {
   "An optional string identifying the mutation call, which will be returned in the response payload"
   clientMutationId: String
-  
-  "this is from payments service, order id (razorpay) which was generated while successfully doing payment"
-  payments_order_id: String
 
   "The order to be placed, if payment is accepted"
   order: OrderInput!
