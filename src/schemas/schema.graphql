@@ -754,7 +754,7 @@ input OrderInput {
   each fulfillment group also has a shop ID, which represents the shop that needs to fulfill that part of the
   order, and those shop IDs may or may not match this one.
   """
-  shopId: String!
+  shopId: String! 
 }
 
 "Input for adding order payments"
