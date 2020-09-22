@@ -4,6 +4,7 @@ import {
   decodeOrderItemsOpaqueIds,
   decodeShopOpaqueId
 } from "../../xforms/id.js";
+import nameko from 'node-nameko-client';
 
 /**
  * @name Mutation/placeOrder
@@ -18,8 +19,34 @@ import {
  * @param {Object} context - an object containing the per-request state
  * @returns {Promise<Object>} PlaceOrderPayload
  */
+
+
+async function rmqOrderManoeuvre(order) {
+
+  const nameko_config={
+    host: process.env['RABBIT_HOST'],
+    port: process.env['RABBIT_PORT'],
+    login: process.env['RABBIT_USER'],
+    password: process.env['RABBIT_PASSWORD']
+  }
+  console.log(nameko_config)
+  
+  let rmq_result = false
+  try {
+    let rpc = await nameko.connect(nameko_config);
+    console.log(rpc);
+    rmq_result  = await rpc.call('OrderManoeuvreService', 'placeOrder', [order], {});
+  }
+  catch (error ) {
+    console.error('oops, something went wrong!', error);
+  }
+  console.error("Successfully triggered OrderManoeuvreService", rmq_result)
+  return rmq_result
+}
+
+
 export default async function placeOrder(parentResult, { input }, context) {
-  const { clientMutationId = null, order, payments } = input;
+  const { clientMutationId = null, order, payments, payments_order_id } = input;
   const { cartId: opaqueCartId, fulfillmentGroups, shopId: opaqueShopId } = order;
 
   const cartId = opaqueCartId ? decodeCartOpaqueId(opaqueCartId) : null;
@@ -34,6 +61,7 @@ export default async function placeOrder(parentResult, { input }, context) {
 
   const { orders, token } = await context.mutations.placeOrder(context, {
     order: {
+      payments_order_id: payments_order_id, 
       ...order,
       cartId,
       fulfillmentGroups: transformedFulfillmentGroups,
@@ -41,7 +69,10 @@ export default async function placeOrder(parentResult, { input }, context) {
     },
     payments
   });
-
+  
+  const OrderManoeuvreService = await rmqOrderManoeuvre(orders)
+  console.log(OrderManoeuvreService, "OrderManoeuvreService")
+  
   return {
     clientMutationId,
     orders,
