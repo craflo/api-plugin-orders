@@ -728,6 +728,11 @@ input OrderInput {
   created.
   """
   cartId: String
+  
+  "this is from payments service, order id (razorpay) which was generated while successfully doing payment"
+  paymentsOrderId: String
+  
+  
 
   "The code for the currency in which all values are being provided"
   currencyCode: String!
