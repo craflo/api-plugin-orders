@@ -1018,6 +1018,11 @@ export const Order = new SimpleSchema({
     type: String,
     optional: true
   },
+  //this is from payments service, order id (razorpay) which was generated while successfully doing payment
+  "payments_order_id": {
+    type: String,
+    optional: true
+  },
   "accountId": {
     type: String,
     optional: true
