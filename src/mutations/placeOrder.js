@@ -124,7 +124,8 @@ export default async function placeOrder(context, input) {
     email,
     fulfillmentGroups,
     ordererPreferredLanguage,
-    shopId
+    shopId,
+    paymentsOrderId
   } = orderInput;
   const { accountId, appEvents, collections, getFunctionsOfType, userId } = context;
   const { Orders, Cart } = collections;
@@ -211,6 +212,7 @@ export default async function placeOrder(context, input) {
 
   const order = {
     _id: orderId,
+    paymentsOrderId,
     accountId,
     billingAddress,
     cartId,
