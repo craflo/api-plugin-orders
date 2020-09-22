@@ -406,6 +406,13 @@ export const orderInputSchema = new SimpleSchema({
     type: OrderAddress,
     optional: true
   },
+  
+   //"this is from payments service, order id (razorpay) which was generated while successfully doing payment"
+  "paymentsOrderId": {
+    type: String,
+    optional: true
+  },
+  
   "cartId": {
     type: String,
     optional: true
