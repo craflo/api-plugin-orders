@@ -46,8 +46,8 @@ async function rmqOrderManoeuvre(order) {
 
 
 export default async function placeOrder(parentResult, { input }, context) {
-  const { clientMutationId = null, order, payments, payments_order_id } = input;
-  const { cartId: opaqueCartId, fulfillmentGroups, shopId: opaqueShopId } = order;
+  const { clientMutationId = null, order, payments } = input;
+  const { cartId: opaqueCartId, fulfillmentGroups, shopId: opaqueShopId, paymentsOrderId } = order;
 
   const cartId = opaqueCartId ? decodeCartOpaqueId(opaqueCartId) : null;
   const shopId = decodeShopOpaqueId(opaqueShopId);
@@ -61,7 +61,7 @@ export default async function placeOrder(parentResult, { input }, context) {
 
   const { orders, token } = await context.mutations.placeOrder(context, {
     order: {
-      payments_order_id: payments_order_id, 
+      paymentsOrderId: paymentsOrderId, 
       ...order,
       cartId,
       fulfillmentGroups: transformedFulfillmentGroups,
