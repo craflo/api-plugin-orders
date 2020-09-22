@@ -136,6 +136,8 @@ export default async function placeOrder(context, input) {
   if (!userId && !shop.allowGuestCheckout) {
     throw new ReactionError("access-denied", "Guest checkout not allowed");
   }
+  
+  console.log(paymentsOrderId,"jeheyyyyy$$$$$$$$$$$$$$$$$$$$$$(()()()()()(_)_)_)_see hereee bc")
 
   let cart;
   if (cartId) {
