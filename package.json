@@ -1,6 +1,6 @@
 {
   "name": "@craflo/api-plugin-orders",
-  "description": "Orders plugin for the Reaction API",
+  "description": "Orders plugin for the Craflo API",
   "version": "0.0.0-development",
   "main": "index.js",
   "type": "module",
